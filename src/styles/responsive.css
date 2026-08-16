@@ -1,0 +1,247 @@
+/* ======================================================
+   RESPONSIVE — PANTALLAS MEDIANAS
+====================================================== */
+
+@media (max-width: 1200px) {
+
+  .intro-anchor {
+    padding:
+      0
+      5vw;
+  }
+
+
+  .intro-title {
+    font-size: clamp(
+      3rem,
+      6vw,
+      5.5rem
+    );
+  }
+
+
+  .text-block {
+    left: 57vw;
+
+    width: 37vw;
+  }
+
+}
+
+
+/* ======================================================
+   RESPONSIVE — TABLET
+====================================================== */
+
+@media (max-width: 900px) {
+
+  .intro-anchor {
+    padding:
+      0
+      6vw;
+  }
+
+
+  .intro-content {
+    max-width: 850px;
+  }
+
+
+  .intro-title {
+    font-size: clamp(
+      2.8rem,
+      8vw,
+      5rem
+    );
+  }
+
+
+  .intro-subtitle {
+    max-width: 650px;
+  }
+
+
+  .text-block {
+    left: 54vw;
+
+    width: 41vw;
+  }
+
+}
+
+
+/* ======================================================
+   RESPONSIVE — MÓVIL
+====================================================== */
+
+@media (max-width: 650px) {
+
+  /* ==================================================
+     PORTADA
+  ================================================== */
+
+  .intro-anchor {
+    padding:
+      0
+      8vw;
+  }
+
+
+  .intro-content {
+    width: 100%;
+
+    max-width: 100%;
+  }
+
+
+  .intro-kicker {
+    margin-bottom: 18px;
+
+    font-size: 0.68rem;
+
+    letter-spacing: 0.20em;
+  }
+
+
+  .intro-title {
+    margin-bottom: 22px;
+
+    max-width: 100%;
+
+    font-size: clamp(
+      2.4rem,
+      12vw,
+      3.8rem
+    );
+
+    line-height: 0.98;
+  }
+
+
+  .intro-subtitle {
+    max-width: 340px;
+
+    font-size: 0.95rem;
+
+    line-height: 1.6;
+  }
+
+
+  /* ==================================================
+     TEXTO DE SECCIONES
+  ================================================== */
+
+  .text-block {
+    top: auto;
+
+    bottom: 7vh;
+
+    left: 8vw;
+
+    width: 84vw;
+
+    transform: none;
+  }
+
+
+  .text-block::before {
+    inset:
+      -35px
+      -30px;
+  }
+
+
+  .eyebrow {
+    margin-bottom: 12px;
+
+    font-size: 0.68rem;
+  }
+
+
+  .text-block h1 {
+    margin-bottom: 16px;
+
+    font-size: clamp(
+      2.5rem,
+      12vw,
+      3.4rem
+    );
+  }
+
+
+  .description {
+    margin-bottom: 14px;
+
+    max-width: 100%;
+
+    font-size: 1rem;
+
+    line-height: 1.45;
+  }
+
+
+  .detail {
+    max-width: 100%;
+
+    font-size: 0.88rem;
+
+    line-height: 1.55;
+  }
+
+
+  /* ==================================================
+     CONTACTO
+  ================================================== */
+
+  .contact-panel {
+    width: 86vw;
+
+    padding:
+      42px
+      30px;
+
+    border-radius: 22px;
+  }
+
+
+  .contact-title {
+    font-size: clamp(
+      2.4rem,
+      11vw,
+      3.4rem
+    );
+  }
+
+
+  .contact-description {
+    font-size: 0.95rem;
+  }
+
+}
+
+
+/* ======================================================
+   PANTALLAS MUY PEQUEÑAS
+====================================================== */
+
+@media (max-width: 400px) {
+
+  .intro-anchor {
+    padding:
+      0
+      7vw;
+  }
+
+
+  .intro-title {
+    font-size: 2.5rem;
+  }
+
+
+  .text-block {
+    left: 7vw;
+
+    width: 86vw;
+  }
+
+}

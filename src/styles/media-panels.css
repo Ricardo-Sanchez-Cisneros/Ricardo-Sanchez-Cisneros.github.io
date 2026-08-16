@@ -1,0 +1,1467 @@
+/* ======================================================
+   PANELES MULTIMEDIA — GLASSMORPHISM
+====================================================== */
+
+.glass-panel--media {
+  position: fixed;
+
+  top: 50%;
+  left: 50%;
+
+  width: min(
+    1180px,
+    88vw
+  );
+
+  padding:
+    30px
+    32px;
+
+  transform:
+    translate(
+      -50%,
+      -50%
+    );
+
+  opacity: 0;
+  visibility: hidden;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.14);
+
+  border-radius: 28px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.075),
+      rgba(255, 255, 255, 0.025)
+    );
+
+  box-shadow:
+    0
+    30px
+    90px
+    rgba(0, 0, 0, 0.28);
+
+  backdrop-filter:
+    blur(18px)
+    saturate(135%);
+
+  -webkit-backdrop-filter:
+    blur(18px)
+    saturate(135%);
+
+  z-index: 8;
+
+  pointer-events: auto;
+
+  will-change:
+    transform,
+    opacity;
+}
+
+
+/* ======================================================
+   REFLEJO SUPERIOR
+====================================================== */
+
+.glass-panel--media::before {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  border-radius: inherit;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.10),
+      transparent 32%
+    );
+
+  opacity: 0.45;
+
+  pointer-events: none;
+}
+
+
+/* ======================================================
+   CABECERA GENERAL
+====================================================== */
+
+.media-panel-header {
+  position: relative;
+
+  display: grid;
+
+  grid-template-columns:
+    1fr
+    minmax(
+      280px,
+      0.8fr
+    );
+
+  align-items: end;
+
+  gap: 48px;
+
+  margin-bottom: 24px;
+
+  z-index: 1;
+}
+
+
+.media-eyebrow {
+  margin-bottom: 10px;
+
+  font-size: 0.72rem;
+
+  font-weight: 700;
+
+  line-height: 1.3;
+
+  letter-spacing: 0.20em;
+
+  text-transform: uppercase;
+
+  color: #8fc7dc;
+}
+
+
+.media-title {
+  font-size: clamp(
+    1.8rem,
+    2.4vw,
+    2.7rem
+  );
+
+  line-height: 1.05;
+
+  letter-spacing: -0.035em;
+
+  font-weight: 650;
+
+  color: #f2f5f6;
+}
+
+
+.media-description {
+  max-width: 420px;
+
+  font-size: 0.92rem;
+
+  line-height: 1.6;
+
+  color: #91a8b3;
+}
+
+
+/* ======================================================
+   HVAC — DISTRIBUCIÓN PRINCIPAL
+====================================================== */
+
+.hvac-media-layout {
+  position: relative;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(
+      0,
+      1fr
+    )
+    260px;
+
+  gap: 20px;
+
+  z-index: 1;
+}
+
+
+.hvac-stage-column {
+  min-width: 0;
+}
+
+
+/* ======================================================
+   HVAC — VISOR PRINCIPAL
+====================================================== */
+
+.media-stage {
+  position: relative;
+
+  width: 100%;
+  height: 370px;
+
+  overflow: hidden;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.11);
+
+  border-radius: 20px;
+
+  background:
+    rgba(4, 9, 17, 0.55);
+
+  box-shadow:
+    inset
+    0
+    0
+    40px
+    rgba(0, 0, 0, 0.15);
+}
+
+
+/* ======================================================
+   HVAC — IMAGEN / VIDEO ACTIVO
+====================================================== */
+
+.media-stage-media {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: contain;
+
+  border-radius: inherit;
+}
+
+
+/* ======================================================
+   HVAC — INFORMACIÓN DEL MEDIO ACTIVO
+====================================================== */
+
+.media-stage-info {
+  position: relative;
+
+  min-height: 94px;
+
+  padding:
+    18px
+    16px
+    14px;
+
+  margin-top: 8px;
+
+  border-radius: 14px;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(5, 10, 18, 0.72),
+      rgba(5, 10, 18, 0.38) 70%,
+      rgba(5, 10, 18, 0.08)
+    );
+
+  backdrop-filter:
+    blur(8px);
+
+  -webkit-backdrop-filter:
+    blur(8px);
+}
+
+
+.media-stage-title {
+  margin-bottom: 7px;
+
+  font-size: 1.05rem;
+
+  line-height: 1.3;
+
+  font-weight: 600;
+
+  color: #f2f5f6;
+
+  text-shadow:
+    0 2px 8px
+    rgba(0, 0, 0, 0.65);
+}
+
+
+.media-stage-description {
+  max-width: 720px;
+
+  font-size: 0.83rem;
+
+  line-height: 1.6;
+
+  color: #b9c8cf;
+
+  text-shadow:
+    0 2px 7px
+    rgba(0, 0, 0, 0.70);
+}
+
+
+/* ======================================================
+   HVAC — SELECTOR LATERAL
+====================================================== */
+
+.media-selector {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+}
+
+
+.media-selector-item {
+  position: relative;
+
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns:
+    34px
+    1fr;
+
+  align-items: center;
+
+  gap: 10px;
+
+  min-height: 62px;
+
+  padding:
+    10px
+    13px;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.08);
+
+  border-radius: 14px;
+
+  background:
+    rgba(7, 13, 22, 0.28);
+
+  color: #91a8b3;
+
+  font: inherit;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+
+
+.media-selector-item::before {
+  content: "";
+
+  position: absolute;
+
+  top: 12px;
+  bottom: 12px;
+  left: 0;
+
+  width: 2px;
+
+  border-radius: 99px;
+
+  background: #8fc7dc;
+
+  opacity: 0;
+
+  transform:
+    scaleY(0.35);
+
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
+
+
+/* ======================================================
+   HVAC — SELECTOR ACTIVO
+====================================================== */
+
+.media-selector-item.is-active {
+  border-color:
+    rgba(143, 199, 220, 0.24);
+
+  background:
+    rgba(143, 199, 220, 0.09);
+
+  color: #f2f5f6;
+}
+
+
+.media-selector-item.is-active::before {
+  opacity: 1;
+
+  transform:
+    scaleY(1);
+}
+
+
+.media-selector-number {
+  font-size: 0.65rem;
+
+  font-weight: 700;
+
+  letter-spacing: 0.10em;
+
+  color: #607985;
+}
+
+
+.media-selector-item.is-active
+.media-selector-number {
+  color: #8fc7dc;
+}
+
+
+.media-selector-label {
+  font-size: 0.82rem;
+
+  line-height: 1.3;
+
+  font-weight: 550;
+}
+
+
+/* ======================================================
+   HVAC — NAVEGACIÓN INFERIOR
+====================================================== */
+
+.media-navigation {
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  margin-top: 18px;
+
+  z-index: 1;
+}
+
+
+/* ======================================================
+   HVAC — INDICADORES
+====================================================== */
+
+.media-dots {
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+}
+
+
+.media-dot {
+  width: 7px;
+  height: 7px;
+
+  padding: 0;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.35);
+
+  border-radius: 50%;
+
+  background: transparent;
+
+  cursor: pointer;
+
+  transition:
+    width 0.25s ease,
+    background 0.25s ease,
+    border-color 0.25s ease;
+}
+
+
+.media-dot.is-active {
+  width: 21px;
+
+  border-radius: 999px;
+
+  border-color: #8fc7dc;
+
+  background: #8fc7dc;
+}
+
+
+/* ======================================================
+   HVAC — CONTADOR
+====================================================== */
+
+.media-counter {
+  font-size: 0.68rem;
+
+  font-weight: 700;
+
+  letter-spacing: 0.12em;
+
+  color: #738b96;
+}
+
+
+/* ======================================================
+   GRID MULTIMEDIA GENERAL
+   ASEPTIC / THERMAL
+====================================================== */
+
+.media-grid {
+  position: relative;
+
+  display: grid;
+
+  grid-template-columns:
+    1.35fr
+    1fr
+    1fr;
+
+  gap: 14px;
+
+  z-index: 1;
+}
+
+
+.media-grid + .media-grid {
+  margin-top: 14px;
+}
+
+
+/* ======================================================
+   TARJETAS MULTIMEDIA
+====================================================== */
+
+.media-card {
+  position: relative;
+
+  min-width: 0;
+
+  overflow: hidden;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.10);
+
+  border-radius: 18px;
+
+  background:
+    rgba(7, 13, 22, 0.34);
+
+  box-shadow:
+    0
+    16px
+    40px
+    rgba(0, 0, 0, 0.12);
+}
+
+
+.media-card--featured {
+  background:
+    rgba(7, 13, 22, 0.42);
+}
+
+
+/* ======================================================
+   IMÁGENES Y VIDEO — TARJETAS
+====================================================== */
+
+.media-image-wrapper,
+.media-video-wrapper {
+  position: relative;
+
+  width: 100%;
+  height: 145px;
+
+  overflow: hidden;
+
+  background:
+    rgba(5, 10, 18, 0.45);
+}
+
+
+.media-card--featured
+.media-image-wrapper,
+.media-card--featured
+.media-video-wrapper {
+  height: 170px;
+}
+
+
+.media-image,
+.media-video {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+}
+
+
+.media-video {
+  background: #080d16;
+}
+
+
+/* ======================================================
+   CONTENIDO DE TARJETAS
+====================================================== */
+
+.media-card-content {
+  display: grid;
+
+  grid-template-columns:
+    auto
+    1fr;
+
+  gap: 14px;
+
+  align-items: start;
+
+  padding:
+    15px
+    16px
+    17px;
+}
+
+
+.media-card-index {
+  padding-top: 2px;
+
+  font-size: 0.65rem;
+
+  font-weight: 700;
+
+  letter-spacing: 0.12em;
+
+  color: #6f8995;
+}
+
+
+.media-card-content h3 {
+  margin-bottom: 6px;
+
+  font-size: 0.92rem;
+
+  line-height: 1.25;
+
+  font-weight: 600;
+
+  color: #e8eef1;
+}
+
+
+.media-card-content p {
+  font-size: 0.76rem;
+
+  line-height: 1.45;
+
+  color: #8fa7b2;
+}
+
+
+/* ======================================================
+   PANEL DIGITAL
+====================================================== */
+
+.digital-grid {
+  position: relative;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(
+      0,
+      1.35fr
+    )
+    minmax(
+      320px,
+      1fr
+    );
+
+  gap: 18px;
+
+  z-index: 1;
+}
+
+
+/* ======================================================
+   POWER BI
+====================================================== */
+
+.digital-card {
+  overflow: hidden;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.11);
+
+  border-radius: 20px;
+
+  background:
+    rgba(7, 13, 22, 0.38);
+}
+
+
+.digital-card .media-video-wrapper {
+  height: 280px;
+}
+
+
+.digital-card-content {
+  padding:
+    20px
+    22px
+    22px;
+}
+
+
+.digital-label {
+  display: block;
+
+  margin-bottom: 8px;
+
+  font-size: 0.65rem;
+
+  font-weight: 700;
+
+  letter-spacing: 0.16em;
+
+  color: #8fc7dc;
+}
+
+
+.digital-card-content h3 {
+  margin-bottom: 8px;
+
+  font-size: 1.15rem;
+
+  line-height: 1.25;
+
+  color: #e8eef1;
+}
+
+
+.digital-card-content p {
+  max-width: 480px;
+
+  font-size: 0.84rem;
+
+  line-height: 1.55;
+
+  color: #8fa7b2;
+}
+
+
+/* ======================================================
+   HERRAMIENTAS DIGITALES COMPLEMENTARIAS
+====================================================== */
+
+.digital-tools {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      2,
+      minmax(
+        0,
+        1fr
+      )
+    );
+
+  gap: 12px;
+}
+
+
+.digital-tool {
+  min-height: 132px;
+
+  padding: 18px;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.09);
+
+  border-radius: 17px;
+
+  background:
+    rgba(7, 13, 22, 0.31);
+}
+
+
+.digital-tool p {
+  font-size: 0.79rem;
+
+  line-height: 1.5;
+
+  color: #91a8b3;
+}
+
+
+/* ======================================================
+   HOVER — DISPOSITIVOS CON CURSOR
+====================================================== */
+
+@media (hover: hover) {
+
+  .media-selector-item:hover {
+    border-color:
+      rgba(143, 199, 220, 0.20);
+
+    background:
+      rgba(143, 199, 220, 0.06);
+
+    color: #dce7eb;
+
+    transform:
+      translateX(2px);
+  }
+
+
+  .media-card,
+  .digital-card,
+  .digital-tool {
+    transition:
+      border-color 0.25s ease,
+      background 0.25s ease,
+      transform 0.25s ease;
+  }
+
+
+  .media-card:hover,
+  .digital-card:hover,
+  .digital-tool:hover {
+    border-color:
+      rgba(143, 199, 220, 0.24);
+
+    background:
+      rgba(13, 22, 34, 0.48);
+
+    transform:
+      translateY(-2px);
+  }
+
+}
+/* ======================================================
+   ASEPTIC — DISTRIBUCIÓN PRINCIPAL
+====================================================== */
+
+.aseptic-media-layout {
+  position: relative;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(
+      0,
+      1fr
+    )
+    260px;
+
+  gap: 20px;
+
+  z-index: 1;
+}
+
+
+.aseptic-stage-column {
+  min-width: 0;
+}
+
+
+/* ======================================================
+   ASEPTIC — ETAPAS DEL PROCESO
+====================================================== */
+
+.aseptic-process-grid {
+  position: relative;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      3,
+      minmax(
+        0,
+        1fr
+      )
+    );
+
+  gap: 12px;
+
+  margin-top: 18px;
+
+  z-index: 1;
+}
+
+
+/* ======================================================
+   ASEPTIC — TARJETAS DE PROCESO
+====================================================== */
+
+.aseptic-process-card {
+  position: relative;
+
+  min-height: 72px;
+
+  display: grid;
+
+  grid-template-columns:
+    auto
+    1fr;
+
+  align-items: center;
+
+  gap: 14px;
+
+  padding:
+    14px
+    16px;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.08);
+
+  border-radius: 15px;
+
+  background:
+    rgba(7, 13, 22, 0.28);
+
+  color: #91a8b3;
+
+  font: inherit;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+
+
+/* ======================================================
+   ASEPTIC — INDICADOR LATERAL
+====================================================== */
+
+.aseptic-process-card::before {
+  content: "";
+
+  position: absolute;
+
+  top: 14px;
+  bottom: 14px;
+  left: 0;
+
+  width: 2px;
+
+  border-radius: 999px;
+
+  background: #8fc7dc;
+
+  opacity: 0;
+
+  transform:
+    scaleY(0.35);
+
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
+
+
+/* ======================================================
+   ASEPTIC — TARJETA ACTIVA
+====================================================== */
+
+.aseptic-process-card.is-active {
+  border-color:
+    rgba(143, 199, 220, 0.24);
+
+  background:
+    rgba(143, 199, 220, 0.09);
+
+  color: #f2f5f6;
+}
+
+
+.aseptic-process-card.is-active::before {
+  opacity: 1;
+
+  transform:
+    scaleY(1);
+}
+
+
+/* ======================================================
+   ASEPTIC — NÚMERO
+====================================================== */
+
+.aseptic-process-number {
+  font-size: 0.65rem;
+
+  font-weight: 700;
+
+  letter-spacing: 0.10em;
+
+  color: #607985;
+}
+
+
+.aseptic-process-card.is-active
+.aseptic-process-number {
+  color: #8fc7dc;
+}
+
+
+/* ======================================================
+   ASEPTIC — TÍTULO
+====================================================== */
+
+.aseptic-process-title {
+  font-size: 0.82rem;
+
+  line-height: 1.3;
+
+  font-weight: 550;
+}
+
+
+/* ======================================================
+   ASEPTIC — HOVER
+====================================================== */
+
+@media (hover: hover) {
+
+  .aseptic-process-card:hover {
+    border-color:
+      rgba(143, 199, 220, 0.20);
+
+    background:
+      rgba(143, 199, 220, 0.06);
+
+    color: #dce7eb;
+
+    transform:
+      translateY(-2px);
+  }
+
+}
+/* ======================================================
+   ASEPTIC — SELECTOR COMPACTO
+====================================================== */
+
+.aseptic-selector {
+  gap: 6px;
+}
+
+
+.aseptic-selector
+.media-selector-item {
+  min-height: 48px;
+
+  padding:
+    7px
+    12px;
+}
+
+
+.aseptic-selector
+.media-selector-item::before {
+  top: 9px;
+  bottom: 9px;
+}
+
+
+.aseptic-selector
+.media-selector-label {
+  font-size: 0.78rem;
+}
+
+/* ======================================================
+   THERMAL — DISTRIBUCIÓN PRINCIPAL
+====================================================== */
+
+.thermal-media-layout {
+  position: relative;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(
+      0,
+      1fr
+    )
+    260px;
+
+  gap: 20px;
+
+  z-index: 1;
+}
+
+
+.thermal-stage-column {
+  min-width: 0;
+}
+
+
+/* ======================================================
+   THERMAL — SELECTOR COMPACTO
+====================================================== */
+
+.thermal-selector {
+  gap: 6px;
+}
+
+
+.thermal-selector
+.media-selector-item {
+  min-height: 48px;
+
+  padding:
+    7px
+    12px;
+}
+
+
+.thermal-selector
+.media-selector-item::before {
+  top: 9px;
+  bottom: 9px;
+}
+
+
+.thermal-selector
+.media-selector-label {
+  font-size: 0.78rem;
+}
+/* ======================================================
+   DIGITAL — DISTRIBUCIÓN PRINCIPAL
+====================================================== */
+
+.digital-media-layout {
+  position: relative;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(
+      0,
+      1fr
+    )
+    260px;
+
+  gap: 20px;
+
+  z-index: 1;
+}
+
+
+.digital-stage-column {
+  min-width: 0;
+}
+
+
+/* ======================================================
+   DIGITAL — SELECTOR LATERAL
+====================================================== */
+
+.digital-selector {
+  gap: 7px;
+}
+
+
+.digital-selector
+.media-selector-item {
+  min-height: 56px;
+
+  padding:
+    9px
+    12px;
+}
+
+
+.digital-selector
+.media-selector-item::before {
+  top: 10px;
+  bottom: 10px;
+}
+
+
+.digital-selector
+.media-selector-label {
+  font-size: 0.78rem;
+}
+
+
+/* ======================================================
+   DIGITAL — HERRAMIENTAS COMPLEMENTARIAS
+====================================================== */
+
+.digital-badges {
+  position: relative;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      5,
+      minmax(
+        0,
+        1fr
+      )
+    );
+
+  gap: 10px;
+
+  margin-top: 16px;
+
+  z-index: 1;
+}
+
+
+/* ======================================================
+   DIGITAL — BADGE
+====================================================== */
+
+.digital-badge {
+  position: relative;
+
+  min-width: 0;
+  min-height: 70px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  padding:
+    12px
+    14px;
+
+  overflow: hidden;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.08);
+
+  border-radius: 14px;
+
+  background:
+    rgba(7, 13, 22, 0.28);
+
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease;
+}
+
+
+/* ======================================================
+   DIGITAL — REFLEJO DEL BADGE
+====================================================== */
+
+.digital-badge::before {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.05),
+      transparent 45%
+    );
+
+  pointer-events: none;
+}
+
+
+/* ======================================================
+   DIGITAL — NOMBRE DE HERRAMIENTA
+====================================================== */
+
+.digital-badge-label {
+  position: relative;
+
+  display: block;
+
+  margin-bottom: 5px;
+
+  overflow: hidden;
+
+  font-size: 0.64rem;
+
+  font-weight: 700;
+
+  line-height: 1.2;
+
+  letter-spacing: 0.11em;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+
+  color: #8fc7dc;
+
+  z-index: 1;
+}
+
+
+/* ======================================================
+   DIGITAL — DESCRIPCIÓN
+====================================================== */
+
+.digital-badge-text {
+  position: relative;
+
+  font-size: 0.71rem;
+
+  line-height: 1.35;
+
+  color: #91a8b3;
+
+  z-index: 1;
+}
+
+
+/* ======================================================
+   DIGITAL — HOVER
+====================================================== */
+
+@media (hover: hover) {
+
+  .digital-badge:hover {
+    border-color:
+      rgba(143, 199, 220, 0.22);
+
+    background:
+      rgba(143, 199, 220, 0.07);
+
+    transform:
+      translateY(-2px);
+  }
+
+}
+/* ======================================================
+   HVAC — SELECTOR COMPACTO
+====================================================== */
+
+.hvac-selector {
+  gap: 6px;
+}
+
+
+.hvac-selector
+.media-selector-item {
+  min-height: 48px;
+
+  padding:
+    7px
+    12px;
+}
+
+
+.hvac-selector
+.media-selector-item::before {
+  top: 9px;
+  bottom: 9px;
+}
+
+
+.hvac-selector
+.media-selector-label {
+  font-size: 0.78rem;
+}
+/* ======================================================
+   DIGITAL — APROVECHAR EL VISOR COMPLETO
+====================================================== */
+
+.digital-media-panel
+.media-stage {
+  overflow: hidden;
+}
+
+
+.digital-media-panel
+.media-stage-media {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center;
+}
+
+
+
+/* ======================================================
+   DIGITAL — MEDIOS
+====================================================== */
+
+.digital-media-panel
+.media-stage {
+  overflow: hidden;
+
+  background:
+    rgba(4, 9, 17, 0.55);
+}
+
+
+/* ======================================================
+   DIGITAL — IMÁGENES
+====================================================== */
+
+.digital-media-panel
+img.media-stage-media {
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+  object-position: center;
+
+  transform: none;
+}
+
+/* ======================================================
+   DIGITAL — VIDEO POWER BI
+====================================================== */
+
+.digital-media-panel
+video.media-stage-media {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  transform:
+    translateY(-0%)
+    scale(1.15);
+
+  transform-origin:
+    center center;
+}
