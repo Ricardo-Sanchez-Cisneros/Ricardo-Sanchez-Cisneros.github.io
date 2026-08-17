@@ -1,8 +1,85 @@
 import './style.css'
 
+import {
+  setupLoadingScreen
+} from './loading/loadingScreen.js'
+
+import {
+  loadingManager
+} from './loading/loadingManager.js'
+
+import {
+  preloadCriticalMedia
+} from './loading/criticalMedia.js'
+
+import {
+  preloadMedia
+} from './loading/progressiveMedia.js'
+
+import {
+  setupScrollHint
+} from './loading/scrollHint.js'
+
+import {
+  setupOrientationGuard
+} from './loading/orientationGuard.js'
+
+setupLoadingScreen()
+setupOrientationGuard()
+setupScrollHint()
+
+const CRITICAL_RESOURCES = [
+
+  '/hdr/studio_small_08_1k.hdr',
+
+  '/models/hemoglobina.glb',
+  '/models/histona.glb',
+  '/models/cyc2.glb',
+  '/models/imipenem.glb',
+
+  '/media/hvac/integridad_filtro_cabina.mp4',
+
+  '/media/aseptic/areas_asepticas.webp',
+
+  '/media/thermal/perfil_termico.png',
+
+  '/media/digital/powerbi1.mp4'
+
+]
+
+
+CRITICAL_RESOURCES.forEach(
+  (resource) => {
+
+    loadingManager.register(
+      resource
+    )
+
+  }
+)
+
+
+preloadCriticalMedia()
+
+
+// ======================================================
+// PRECARGA POSTERIOR A LA ENTRADA
+// ======================================================
+
+loadingManager.onReady(
+  () => {
+
+    preloadMedia(
+      '/media/hvac/flujo_vertical_cabina.mp4',
+      'video'
+    )
+
+  }
+)
 // ======================================================
 // CONSTRUCCIÓN DE LA PÁGINA
 // ======================================================
+
 
 import {
   buildPage

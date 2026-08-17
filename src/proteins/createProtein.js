@@ -12,6 +12,10 @@ import {
   applyProteinMaterial
 } from './materials.js'
 
+import {
+  loadingManager
+} from '../loading/loadingManager.js'
+
 
 // ======================================================
 // DRACO
@@ -53,15 +57,12 @@ function createProtein({
   // GRUPOS DE TRANSFORMACIÓN
   // ====================================================
 
-  // Grupo exclusivo para posición.
   const positionGroup =
     new THREE.Group()
 
-  // Grupo exclusivo para rotación.
   const rotationGroup =
     new THREE.Group()
 
-  // Grupo exclusivo para escala.
   const scaleGroup =
     new THREE.Group()
 
@@ -130,6 +131,10 @@ function createProtein({
 
     url,
 
+    // ==================================================
+    // CARGA COMPLETADA
+    // ==================================================
+
     (gltf) => {
 
       const model =
@@ -183,10 +188,12 @@ function createProtein({
             model
           )
 
+
       const center =
         box.getCenter(
           new THREE.Vector3()
         )
+
 
       const size =
         box.getSize(
@@ -204,6 +211,7 @@ function createProtein({
         -center.z
       )
 
+
       model.updateMatrixWorld(
         true
       )
@@ -220,9 +228,11 @@ function createProtein({
           size.z
         )
 
+
       const scale =
         desiredSize /
         maxDimension
+
 
       scaleGroup.scale.setScalar(
         scale
@@ -236,8 +246,18 @@ function createProtein({
       protein.loaded =
         true
 
+
       console.log(
         `Modelo cargado: ${url}`
+      )
+
+
+      // ==================================================
+      // INFORMAR AL LOADING MANAGER
+      // ==================================================
+
+      loadingManager.complete(
+        url
       )
 
     },
@@ -258,6 +278,12 @@ function createProtein({
 
       console.error(
         `Error cargando ${url}:`,
+        error
+      )
+
+
+      loadingManager.fail(
+        url,
         error
       )
 

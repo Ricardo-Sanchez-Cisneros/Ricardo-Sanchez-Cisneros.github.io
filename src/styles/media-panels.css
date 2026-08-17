@@ -239,6 +239,107 @@
 
 
 /* ======================================================
+   ESTADO LOCAL DE CARGA
+====================================================== */
+
+.media-stage-media--loading {
+  opacity: 0;
+}
+
+
+.media-stage-media--ready {
+  opacity: 1;
+
+  transition:
+    opacity 0.35s ease;
+}
+
+
+.media-stage-loading {
+  position: absolute;
+
+  inset: 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 14px;
+
+  z-index: 5;
+
+  background:
+    rgba(4, 9, 17, 0.88);
+
+  color:
+    rgba(225, 235, 245, 0.72);
+
+  pointer-events: none;
+}
+
+
+.media-stage-loading__spinner {
+  width: 24px;
+  height: 24px;
+
+  border:
+    2px solid
+    rgba(255, 255, 255, 0.14);
+
+  border-top-color:
+    #8fc7dc;
+
+  border-radius: 50%;
+
+  animation:
+    media-loading-spin
+    0.8s
+    linear
+    infinite;
+}
+
+
+.media-stage-loading__text {
+  font-size: 0.76rem;
+
+  font-weight: 600;
+
+  letter-spacing: 0.08em;
+
+  text-transform: uppercase;
+
+  color:
+    rgba(225, 235, 245, 0.72);
+}
+
+
+.media-stage-loading--error
+.media-stage-loading__spinner {
+  display: none;
+}
+
+
+.media-stage-loading--error
+.media-stage-loading__text {
+  color:
+    rgba(235, 190, 190, 0.82);
+}
+
+
+@keyframes media-loading-spin {
+
+  to {
+    transform:
+      rotate(360deg);
+  }
+
+}
+
+
+/* ======================================================
    HVAC — INFORMACIÓN DEL MEDIO ACTIVO
 ====================================================== */
 
@@ -861,6 +962,8 @@
   }
 
 }
+
+
 /* ======================================================
    ASEPTIC — DISTRIBUCIÓN PRINCIPAL
 ====================================================== */
@@ -1069,6 +1172,8 @@
   }
 
 }
+
+
 /* ======================================================
    ASEPTIC — SELECTOR COMPACTO
 ====================================================== */
@@ -1099,6 +1204,7 @@
 .media-selector-label {
   font-size: 0.78rem;
 }
+
 
 /* ======================================================
    THERMAL — DISTRIBUCIÓN PRINCIPAL
@@ -1157,6 +1263,8 @@
 .media-selector-label {
   font-size: 0.78rem;
 }
+
+
 /* ======================================================
    DIGITAL — DISTRIBUCIÓN PRINCIPAL
 ====================================================== */
@@ -1368,6 +1476,8 @@
   }
 
 }
+
+
 /* ======================================================
    HVAC — SELECTOR COMPACTO
 ====================================================== */
@@ -1398,6 +1508,8 @@
 .media-selector-label {
   font-size: 0.78rem;
 }
+
+
 /* ======================================================
    DIGITAL — APROVECHAR EL VISOR COMPLETO
 ====================================================== */
@@ -1416,7 +1528,6 @@
   object-fit: cover;
   object-position: center;
 }
-
 
 
 /* ======================================================
@@ -1446,6 +1557,7 @@ img.media-stage-media {
 
   transform: none;
 }
+
 
 /* ======================================================
    DIGITAL — VIDEO POWER BI

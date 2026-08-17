@@ -1,5 +1,13 @@
 import * as THREE from 'three'
-import { HDRLoader } from 'three/addons/loaders/HDRLoader.js'
+
+import {
+  HDRLoader
+} from 'three/addons/loaders/HDRLoader.js'
+
+import {
+  loadingManager
+} from '../loading/loadingManager.js'
+
 
 // ======================================================
 // CONFIGURAR ENTORNO HDR + ILUMINACIÓN
@@ -14,39 +22,76 @@ function setupEnvironment(scene) {
   const hdrLoader =
     new HDRLoader()
 
+
   hdrLoader.load(
 
     '/hdr/studio_small_08_1k.hdr',
+
+    // ==================================================
+    // CARGA CORRECTA
+    // ==================================================
 
     (environmentMap) => {
 
       environmentMap.mapping =
         THREE.EquirectangularReflectionMapping
 
+
       // El HDR ilumina y se refleja
       // en los materiales PBR.
+
       scene.environment =
         environmentMap
 
+
       scene.environmentRotation.y =
-        THREE.MathUtils.degToRad(35)
+        THREE.MathUtils.degToRad(
+          35
+        )
+
 
       // Intensidad actual que ya dejamos estable.
+
       scene.environmentIntensity =
         0.28
+
 
       console.log(
         'HDR environment cargado'
       )
 
+
+      // Informamos al sistema de carga
+      // que el HDR está listo.
+
+      loadingManager.complete(
+        '/hdr/studio_small_08_1k.hdr'
+      )
+
     },
 
+
+    // ==================================================
+    // PROGRESO
+    // ==================================================
+
     undefined,
+
+
+    // ==================================================
+    // ERROR
+    // ==================================================
 
     (error) => {
 
       console.error(
         'Error cargando HDR:',
+        error
+      )
+
+
+      loadingManager.fail(
+        '/hdr/studio_small_08_1k.hdr',
         error
       )
 
@@ -71,6 +116,7 @@ function setupEnvironment(scene) {
       0.22
     )
 
+
   scene.add(
     ambientLight
   )
@@ -89,17 +135,20 @@ function setupEnvironment(scene) {
       5
     )
 
+
   keyLight.position.set(
     3.5,
     3,
     5
   )
 
+
   keyLight.lookAt(
     0,
     0,
     0
   )
+
 
   scene.add(
     keyLight
@@ -119,17 +168,20 @@ function setupEnvironment(scene) {
       4
     )
 
+
   fillLight.position.set(
     -4,
     0,
     3
   )
 
+
   fillLight.lookAt(
     0,
     0,
     0
   )
+
 
   scene.add(
     fillLight
@@ -148,17 +200,20 @@ function setupEnvironment(scene) {
       4
     )
 
+
   rimBlue.position.set(
     -3,
     3,
     -3
   )
 
+
   rimBlue.lookAt(
     0,
     0,
     0
   )
+
 
   scene.add(
     rimBlue
@@ -177,17 +232,20 @@ function setupEnvironment(scene) {
       3
     )
 
+
   rimLavender.position.set(
     3,
     -1,
     -3
   )
 
+
   rimLavender.lookAt(
     0,
     0,
     0
   )
+
 
   scene.add(
     rimLavender
@@ -199,11 +257,17 @@ function setupEnvironment(scene) {
   // ====================================================
 
   return {
+
     ambientLight,
+
     keyLight,
+
     fillLight,
+
     rimBlue,
+
     rimLavender
+
   }
 
 }

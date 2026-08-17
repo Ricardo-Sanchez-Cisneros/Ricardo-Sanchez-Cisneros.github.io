@@ -1,0 +1,328 @@
+/* =====================================================
+   ORIENTATION GUARD
+===================================================== */
+
+html.orientation-blocked,
+body.orientation-blocked {
+  overflow: hidden;
+}
+
+
+/* =====================================================
+   CONTENEDOR
+===================================================== */
+
+.orientation-guard {
+  position: fixed;
+
+  inset: 0;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding:
+    32px;
+
+  background:
+    radial-gradient(
+      circle at 50% 38%,
+      rgba(35, 72, 105, 0.34),
+      rgba(4, 9, 17, 0.98) 62%
+    ),
+    #040911;
+
+  color:
+    #f4f7fb;
+
+  opacity: 0;
+
+  visibility: hidden;
+
+  pointer-events: none;
+
+  z-index: 10000;
+
+  transition:
+    opacity 0.35s ease,
+    visibility 0.35s ease;
+}
+
+
+/* =====================================================
+   VISIBLE
+===================================================== */
+
+.orientation-guard--visible {
+  opacity: 1;
+
+  visibility: visible;
+
+  pointer-events: auto;
+}
+
+
+/* =====================================================
+   CONTENIDO
+===================================================== */
+
+.orientation-guard__content {
+  width:
+    min(
+      420px,
+      88vw
+    );
+
+  text-align: center;
+}
+
+
+/* =====================================================
+   ICONO DEL DISPOSITIVO
+===================================================== */
+
+.orientation-guard__device {
+  position: relative;
+
+  width: 100px;
+  height: 92px;
+
+  margin:
+    0
+    auto
+    30px;
+}
+
+
+/* =====================================================
+   TELÉFONO
+===================================================== */
+
+.orientation-guard__phone {
+  position: absolute;
+
+  top: 4px;
+  left: 50%;
+
+  width: 42px;
+  height: 72px;
+
+  border:
+    2px solid
+    rgba(185, 217, 239, 0.84);
+
+  border-radius:
+    10px;
+
+  transform:
+    translateX(-50%)
+    rotate(0deg);
+
+  box-shadow:
+    0
+    0
+    30px
+    rgba(119, 185, 255, 0.12);
+
+  animation:
+    orientation-phone
+    2.6s
+    ease-in-out
+    infinite;
+}
+
+
+/* =====================================================
+   DETALLE DEL TELÉFONO
+===================================================== */
+
+.orientation-guard__phone::after {
+  content: "";
+
+  position: absolute;
+
+  bottom: 5px;
+  left: 50%;
+
+  width: 4px;
+  height: 4px;
+
+  border-radius:
+    50%;
+
+  background:
+    rgba(185, 217, 239, 0.72);
+
+  transform:
+    translateX(-50%);
+}
+
+
+/* =====================================================
+   FLECHA
+===================================================== */
+
+.orientation-guard__arrow {
+  position: absolute;
+
+  right: 2px;
+  bottom: 4px;
+
+  font-size:
+    1.55rem;
+
+  color:
+    #8fc7dc;
+
+  animation:
+    orientation-arrow
+    1.6s
+    ease-in-out
+    infinite;
+}
+
+
+/* =====================================================
+   EYEBROW
+===================================================== */
+
+.orientation-guard__eyebrow {
+  margin:
+    0
+    0
+    14px;
+
+  font-size:
+    0.66rem;
+
+  font-weight:
+    700;
+
+  letter-spacing:
+    0.20em;
+
+  color:
+    rgba(143, 199, 220, 0.78);
+}
+
+
+/* =====================================================
+   TÍTULO
+===================================================== */
+
+.orientation-guard__title {
+  margin:
+    0;
+
+  font-size:
+    clamp(
+      1.8rem,
+      8vw,
+      2.7rem
+    );
+
+  line-height:
+    1.05;
+
+  font-weight:
+    550;
+
+  letter-spacing:
+    -0.035em;
+}
+
+
+/* =====================================================
+   DESCRIPCIÓN
+===================================================== */
+
+.orientation-guard__description {
+  margin:
+    18px
+    auto
+    0;
+
+  max-width:
+    340px;
+
+  font-size:
+    0.9rem;
+
+  line-height:
+    1.6;
+
+  color:
+    rgba(220, 232, 241, 0.68);
+}
+
+
+/* =====================================================
+   ANIMACIÓN TELÉFONO
+===================================================== */
+
+@keyframes orientation-phone {
+
+  0%,
+  20% {
+    transform:
+      translateX(-50%)
+      rotate(0deg);
+  }
+
+
+  60%,
+  100% {
+    transform:
+      translateX(-50%)
+      rotate(90deg);
+  }
+
+}
+
+
+/* =====================================================
+   ANIMACIÓN FLECHA
+===================================================== */
+
+@keyframes orientation-arrow {
+
+  0%,
+  100% {
+    opacity:
+      0.45;
+
+    transform:
+      rotate(-20deg)
+      scale(0.95);
+  }
+
+
+  50% {
+    opacity:
+      1;
+
+    transform:
+      rotate(20deg)
+      scale(1.05);
+  }
+
+}
+
+
+/* =====================================================
+   REDUCIR MOVIMIENTO
+===================================================== */
+
+@media (
+  prefers-reduced-motion:
+  reduce
+) {
+
+  .orientation-guard__phone,
+  .orientation-guard__arrow {
+    animation:
+      none;
+  }
+
+}
