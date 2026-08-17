@@ -24,6 +24,15 @@ import {
   setupOrientationGuard
 } from './loading/orientationGuard.js'
 
+import {
+  setupLanguageManager
+} from './i18n/languageManager.js'
+
+import {
+  setupLanguageSwitch
+} from './i18n/languageSwitch.js'
+
+
 setupLoadingScreen()
 setupOrientationGuard()
 setupScrollHint()
@@ -87,6 +96,14 @@ import {
 
 buildPage()
 
+
+// ======================================================
+// IDIOMA
+// ======================================================
+
+setupLanguageManager()
+
+setupLanguageSwitch()
 
 // ======================================================
 // CORE
