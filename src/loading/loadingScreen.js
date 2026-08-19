@@ -2,6 +2,10 @@ import {
   loadingManager
 } from './loadingManager.js'
 
+import {
+  t
+} from '../i18n/languageManager.js'
+
 
 // ======================================================
 // PANTALLA DE CARGA
@@ -10,24 +14,37 @@ import {
 function setupLoadingScreen() {
 
   const loadingScreen =
-    document.createElement('div')
+    document.createElement(
+      'div'
+    )
+
 
   loadingScreen.className =
     'loading-screen'
 
+
   loadingScreen.innerHTML = `
     <div class="loading-screen__content">
 
-      <p class="loading-screen__eyebrow">
-        Q.B.P. RICARDO SÁNCHEZ CISNEROS
+      <p
+        class="loading-screen__eyebrow"
+        data-i18n="loading.eyebrow"
+      >
+        ${t('loading.eyebrow')}
       </p>
 
-      <h1 class="loading-screen__title">
-        Preparando portafolio
+      <h1
+        class="loading-screen__title"
+        data-i18n="loading.title"
+      >
+        ${t('loading.title')}
       </h1>
 
-      <p class="loading-screen__description">
-        Cargando contenido y visualización 3D
+      <p
+        class="loading-screen__description"
+        data-i18n="loading.description"
+      >
+        ${t('loading.description')}
       </p>
 
       <div class="loading-screen__progress">
@@ -59,10 +76,14 @@ function setupLoadingScreen() {
   )
 
 
-  // Bloqueamos scroll mientras carga.
+  // ====================================================
+  // BLOQUEAR SCROLL
+  // ====================================================
+
   document.documentElement.classList.add(
     'portfolio-loading'
   )
+
 
   document.body.classList.add(
     'portfolio-loading'
@@ -73,6 +94,7 @@ function setupLoadingScreen() {
     loadingScreen.querySelector(
       '[data-loading-percentage]'
     )
+
 
   const bar =
     loadingScreen.querySelector(
@@ -91,7 +113,6 @@ function setupLoadingScreen() {
   loadingManager.onProgress(
     (progress) => {
 
-      // Evita que visualmente el porcentaje retroceda.
       currentProgress =
         Math.max(
           currentProgress,
@@ -120,6 +141,7 @@ function setupLoadingScreen() {
       percentage.textContent =
         '100%'
 
+
       bar.style.width =
         '100%'
 
@@ -135,6 +157,7 @@ function setupLoadingScreen() {
           document.documentElement.classList.remove(
             'portfolio-loading'
           )
+
 
           document.body.classList.remove(
             'portfolio-loading'

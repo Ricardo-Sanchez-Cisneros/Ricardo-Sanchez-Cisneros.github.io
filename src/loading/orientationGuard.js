@@ -1,3 +1,8 @@
+import {
+  t
+} from '../i18n/languageManager.js'
+
+
 // ======================================================
 // CONTROL DE ORIENTACIÓN
 // ======================================================
@@ -22,8 +27,14 @@ function setupOrientationGuard() {
 
   orientationGuard.setAttribute(
     'aria-label',
-    'Gira tu dispositivo'
+    t(
+      'orientation.aria'
+    )
   )
+
+
+  orientationGuard.dataset.i18nAriaLabel =
+    'orientation.aria'
 
 
   orientationGuard.innerHTML = `
@@ -33,27 +44,41 @@ function setupOrientationGuard() {
         class="orientation-guard__device"
         aria-hidden="true"
       >
-        <div class="orientation-guard__phone"></div>
 
-        <span class="orientation-guard__arrow">
+        <div
+          class="orientation-guard__phone"
+        ></div>
+
+        <span
+          class="orientation-guard__arrow"
+        >
           ↻
         </span>
+
       </div>
 
 
-      <p class="orientation-guard__eyebrow">
-        EXPERIENCIA 3D
+      <p
+        class="orientation-guard__eyebrow"
+        data-i18n="orientation.eyebrow"
+      >
+        ${t('orientation.eyebrow')}
       </p>
 
 
-      <h1 class="orientation-guard__title">
-        Gira tu dispositivo
+      <h1
+        class="orientation-guard__title"
+        data-i18n="orientation.title"
+      >
+        ${t('orientation.title')}
       </h1>
 
 
-      <p class="orientation-guard__description">
-        Esta experiencia está diseñada para visualizarse
-        en modo horizontal.
+      <p
+        class="orientation-guard__description"
+        data-i18n="orientation.description"
+      >
+        ${t('orientation.description')}
       </p>
 
     </div>
@@ -108,16 +133,8 @@ function setupOrientationGuard() {
   }
 
 
-  // ====================================================
-  // ESTADO INICIAL
-  // ====================================================
-
   updateOrientationGuard()
 
-
-  // ====================================================
-  // CAMBIOS DE TAMAÑO
-  // ====================================================
 
   window.addEventListener(
     'resize',
@@ -128,10 +145,6 @@ function setupOrientationGuard() {
   )
 
 
-  // ====================================================
-  // CAMBIOS DE ORIENTACIÓN
-  // ====================================================
-
   window.addEventListener(
     'orientationchange',
     updateOrientationGuard,
@@ -140,11 +153,6 @@ function setupOrientationGuard() {
     }
   )
 
-
-  // ====================================================
-  // VISUAL VIEWPORT
-  // Útil en navegadores móviles modernos.
-  // ====================================================
 
   if (
     window.visualViewport

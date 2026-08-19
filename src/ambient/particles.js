@@ -237,8 +237,6 @@ function createVirion({
       side:
         THREE.DoubleSide,
 
-      flatShading:
-        true
 
     })
 

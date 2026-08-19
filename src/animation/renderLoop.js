@@ -1,5 +1,6 @@
 import * as THREE from 'three'
 
+
 // ======================================================
 // INICIAR RENDER LOOP
 // ======================================================
@@ -12,29 +13,42 @@ function startRenderLoop({
   ambientSystem,
   postprocessing
 }) {
+
   // ====================================================
-  // RELOJ
+  // TEMPORIZADOR
   // ====================================================
 
-  const clock =
-    new THREE.Clock()
+  const timer =
+    new THREE.Timer()
+
+
+  // Evita saltos temporales grandes cuando el usuario
+  // cambia de pestaña o el navegador queda oculto.
+
+  timer.connect(
+    document
+  )
 
 
   // ====================================================
   // LOOP PRINCIPAL
   // ====================================================
 
-  function animate() {
+  function animate(
+    timestamp
+  ) {
 
-    requestAnimationFrame(
-      animate
+    timer.update(
+      timestamp
     )
 
+
     const delta =
-      clock.getDelta()
+      timer.getDelta()
+
 
     const elapsed =
-      clock.elapsedTime
+      timer.getElapsed()
 
 
     // ==================================================
@@ -49,7 +63,9 @@ function startRenderLoop({
         ) {
 
           return
+
         }
+
 
         protein.rotationGroup.rotation.y +=
           delta *
@@ -73,7 +89,12 @@ function startRenderLoop({
     // RENDER
     // ==================================================
 
-   postprocessing.composer.render()
+    postprocessing.composer.render()
+
+
+    requestAnimationFrame(
+      animate
+    )
 
   }
 
@@ -82,7 +103,9 @@ function startRenderLoop({
   // INICIAR
   // ====================================================
 
-  animate()
+  requestAnimationFrame(
+    animate
+  )
 
 }
 

@@ -1,5 +1,10 @@
 import './style.css'
 
+
+// ======================================================
+// LOADING
+// ======================================================
+
 import {
   setupLoadingScreen
 } from './loading/loadingScreen.js'
@@ -13,8 +18,8 @@ import {
 } from './loading/criticalMedia.js'
 
 import {
-  preloadMedia
-} from './loading/progressiveMedia.js'
+  startBackgroundMediaLoader
+} from './loading/backgroundMediaLoader.js'
 
 import {
   setupScrollHint
@@ -24,8 +29,14 @@ import {
   setupOrientationGuard
 } from './loading/orientationGuard.js'
 
+
+// ======================================================
+// IDIOMA
+// ======================================================
+
 import {
-  setupLanguageManager
+  setupLanguageManager,
+  applyTranslations
 } from './i18n/languageManager.js'
 
 import {
@@ -33,9 +44,20 @@ import {
 } from './i18n/languageSwitch.js'
 
 
+// ======================================================
+// PANTALLA DE CARGA
+// ======================================================
+
 setupLoadingScreen()
+
 setupOrientationGuard()
+
 setupScrollHint()
+
+
+// ======================================================
+// RECURSOS CRÍTICOS
+// ======================================================
 
 const CRITICAL_RESOURCES = [
 
@@ -68,31 +90,48 @@ CRITICAL_RESOURCES.forEach(
 )
 
 
+// ======================================================
+// PRECARGA CRÍTICA
+// ======================================================
+
 preloadCriticalMedia()
 
 
 // ======================================================
-// PRECARGA POSTERIOR A LA ENTRADA
+// PRECARGA GLOBAL EN SEGUNDO PLANO
+// ======================================================
+//
+// Cuando todos los recursos críticos están listos:
+//
+// 1. El loader desaparece.
+// 2. El usuario puede utilizar el portafolio.
+// 3. Todas las evidencias restantes continúan
+//    descargándose automáticamente.
+// 4. No depende del scroll ni de clicks.
 // ======================================================
 
 loadingManager.onReady(
   () => {
 
-    preloadMedia(
-      '/media/hvac/flujo_vertical_cabina.mp4',
-      'video'
+    console.log(
+      '[Portfolio] Recursos críticos listos.'
     )
+
+
+    startBackgroundMediaLoader()
 
   }
 )
+
+
 // ======================================================
 // CONSTRUCCIÓN DE LA PÁGINA
 // ======================================================
 
-
 import {
   buildPage
 } from './page/buildPage.js'
+
 
 buildPage()
 
@@ -104,6 +143,7 @@ buildPage()
 setupLanguageManager()
 
 setupLanguageSwitch()
+
 
 // ======================================================
 // CORE
@@ -127,6 +167,7 @@ import {
 import {
   setupMediaPanels
 } from './media/mediaPanels.js'
+
 
 // ======================================================
 // AMBIENTE
@@ -316,6 +357,7 @@ const proteins = [
 const mediaPanels =
   setupMediaPanels()
 
+
 // ======================================================
 // INTERACCIÓN — HOVER
 // ======================================================
@@ -342,6 +384,7 @@ setupProteinDrag({
   proteins
 
 })
+
 
 // ======================================================
 // TIMELINE PRINCIPAL
@@ -395,6 +438,7 @@ window.addEventListener(
     background.resize()
 
     postprocessing.resize()
+
 
     if (
       scrollTimeline.scrollTrigger

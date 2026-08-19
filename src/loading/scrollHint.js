@@ -2,6 +2,10 @@ import {
   loadingManager
 } from './loadingManager.js'
 
+import {
+  t
+} from '../i18n/languageManager.js'
+
 
 // ======================================================
 // INDICADOR DE SCROLL
@@ -20,8 +24,11 @@ function setupScrollHint() {
 
 
   scrollHint.innerHTML = `
-    <span class="scroll-hint__label">
-      SCROLL
+    <span
+      class="scroll-hint__label"
+      data-i18n="scroll.label"
+    >
+      ${t('scroll.label')}
     </span>
 
     <span
@@ -55,7 +62,9 @@ function setupScrollHint() {
           if (
             hidden
           ) {
+
             return
+
           }
 
 
@@ -80,7 +89,9 @@ function setupScrollHint() {
     if (
       hidden
     ) {
+
       return
+
     }
 
 

@@ -1,6 +1,10 @@
 import {
-  preloadNextMedia
-} from '../loading/progressiveMedia.js'
+  prioritizeBackgroundMedia
+} from '../loading/backgroundMediaLoader.js'
+
+import {
+  t
+} from '../i18n/languageManager.js'
 
 
 // ======================================================
@@ -116,8 +120,12 @@ function createMediaElement(
       true
 
 
+    // El BackgroundLoader prepara los archivos en paralelo.
+    // Si el usuario llega antes, el navegador debe solicitar
+    // todo lo posible y no limitarse únicamente a metadata.
+
     video.preload =
-      'metadata'
+      'auto'
 
 
     video.dataset.activeMedia =
@@ -303,16 +311,139 @@ function createMediaPanel(
     null
 
 
+  let activeLoadingIndicator =
+    null
+
+
   let dots =
     []
 
 
   // Identificador de activación.
   // Evita que una carga anterior interfiera
-  // si el usuario cambia rápidamente de evidencia.
+  // si se cambia rápidamente de evidencia.
 
   let activationId =
     0
+
+
+  // ====================================================
+  // OBTENER ELEMENTO ACTIVO
+  // ====================================================
+
+  function getActiveItem() {
+
+    return items[
+      activeIndex
+    ] || null
+
+  }
+
+
+  // ====================================================
+  // ACTUALIZAR INFORMACIÓN DE LA EVIDENCIA
+  // ====================================================
+
+  function updateActiveMediaInfo() {
+
+    const item =
+      getActiveItem()
+
+
+    if (
+      !item
+    ) {
+
+      return
+
+    }
+
+
+    if (
+      title
+    ) {
+
+      title.textContent =
+        item.dataset.mediaTitle ||
+        ''
+
+    }
+
+
+    if (
+      description
+    ) {
+
+      description.textContent =
+        item.dataset.mediaDescription ||
+        ''
+
+    }
+
+
+    // Actualizar ALT si el medio activo es una imagen.
+
+    if (
+      activeMedia instanceof
+      HTMLImageElement
+    ) {
+
+      activeMedia.alt =
+        item.dataset.mediaAlt ||
+        item.dataset.mediaTitle ||
+        ''
+
+    }
+
+  }
+
+
+  // ====================================================
+  // ACTUALIZAR TEXTO DE CARGA
+  // ====================================================
+
+  function updateLoadingText() {
+
+    if (
+      !activeLoadingIndicator
+    ) {
+
+      return
+
+    }
+
+
+    const loadingText =
+      activeLoadingIndicator.querySelector(
+        '.media-stage-loading__text'
+      )
+
+
+    if (
+      !loadingText
+    ) {
+
+      return
+
+    }
+
+
+    const isError =
+      activeLoadingIndicator.classList.contains(
+        'media-stage-loading--error'
+      )
+
+
+    loadingText.textContent =
+      isError
+        ? t(
+            'media.error'
+          )
+        : t(
+            'media.loading'
+          )
+
+  }
 
 
   // ====================================================
@@ -402,9 +533,32 @@ function createMediaPanel(
 
 
     const item =
-      items[
-        activeIndex
-      ]
+      getActiveItem()
+
+
+    if (
+      !item
+    ) {
+
+      return
+
+    }
+
+
+    // ==================================================
+    // PRIORIZAR EN BACKGROUND LOADER
+    // ==================================================
+    //
+    // Si el archivo todavía está esperando en la cola,
+    // se mueve al frente.
+    //
+    // Si ya se descargó o está siendo descargado,
+    // BackgroundLoader simplemente no hace nada.
+    // ==================================================
+
+    prioritizeBackgroundMedia(
+      item.dataset.mediaSrc
+    )
 
 
     // ==================================================
@@ -431,6 +585,10 @@ function createMediaPanel(
       )
 
 
+    activeLoadingIndicator =
+      loadingIndicator
+
+
     loadingIndicator.className =
       'media-stage-loading'
 
@@ -443,7 +601,7 @@ function createMediaPanel(
       <span
         class="media-stage-loading__text"
       >
-        Cargando evidencia...
+        ${t('media.loading')}
       </span>
     `
 
@@ -491,8 +649,19 @@ function createMediaPanel(
       loadingIndicator.remove()
 
 
+      if (
+        activeLoadingIndicator ===
+        loadingIndicator
+      ) {
+
+        activeLoadingIndicator =
+          null
+
+      }
+
+
       // Si fue seleccionado manualmente,
-      // reproducimos cuando realmente esté listo.
+      // reproducimos cuando esté realmente listo.
 
       if (
         autoplay &&
@@ -532,20 +701,7 @@ function createMediaPanel(
       )
 
 
-      const loadingText =
-        loadingIndicator.querySelector(
-          '.media-stage-loading__text'
-        )
-
-
-      if (
-        loadingText
-      ) {
-
-        loadingText.textContent =
-          'No se pudo cargar la evidencia.'
-
-      }
+      updateLoadingText()
 
     }
 
@@ -583,6 +739,11 @@ function createMediaPanel(
             once: true
           }
         )
+
+
+        // Forzar la solicitud con preload="auto".
+
+        media.load()
 
       }
 
@@ -623,26 +784,7 @@ function createMediaPanel(
     // TEXTO
     // ==================================================
 
-    if (
-      title
-    ) {
-
-      title.textContent =
-        item.dataset.mediaTitle ||
-        ''
-
-    }
-
-
-    if (
-      description
-    ) {
-
-      description.textContent =
-        item.dataset.mediaDescription ||
-        ''
-
-    }
+    updateActiveMediaInfo()
 
 
     // ==================================================
@@ -720,22 +862,6 @@ function createMediaPanel(
       }
     )
 
-
-    // ==================================================
-    // PRECARGA PROGRESIVA
-    // ==================================================
-
-    if (
-      autoplay
-    ) {
-
-      preloadNextMedia(
-        items,
-        activeIndex
-      )
-
-    }
-
   }
 
 
@@ -778,6 +904,32 @@ function createMediaPanel(
 
 
   // ====================================================
+  // CAMBIO DE IDIOMA
+  // ====================================================
+  //
+  // languageManager actualiza primero los data-* de
+  // cada selector y posteriormente emite este evento.
+  //
+  // Aquí refrescamos la evidencia que ya está visible,
+  // sin recrear imágenes ni videos.
+  // ====================================================
+
+  function handleLanguageChange() {
+
+    updateActiveMediaInfo()
+
+    updateLoadingText()
+
+  }
+
+
+  window.addEventListener(
+    'portfolio:languagechange',
+    handleLanguageChange
+  )
+
+
+  // ====================================================
   // ESTADO INICIAL
   // ====================================================
 
@@ -805,6 +957,13 @@ function createMediaPanel(
     getActiveIndex() {
 
       return activeIndex
+
+    },
+
+
+    getActiveMedia() {
+
+      return activeMedia
 
     }
 
